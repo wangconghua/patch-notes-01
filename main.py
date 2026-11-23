@@ -20,8 +20,9 @@ NOTE = (
 
 
 def main() -> None:
-    if not 1 <= len(NOTE) <= 160 or not NOTE.strip():
-        raise ValueError("note must be 1-160 non-blank characters")
+    # The entry must be a single line: a newline would break the gate.
+    if not 1 <= len(NOTE) <= 160 or not NOTE.strip() or "\n" in NOTE:
+        raise ValueError("note must be one line of 1-160 non-blank characters")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(NOTE)
